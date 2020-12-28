@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "633633644981",
+    "firebase_url": "https://e-val-2020-default-rtdb.firebaseio.com",
+    "project_id": "e-val-2020",
+    "storage_bucket": "e-val-2020.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:633633644981:android:fd484fefff0d5313e5f9fc",
+        "android_client_info": {
+          "package_name": "com.example.eval"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "633633644981-k34o5mo21shh7qri1jsh8dudik9oc46t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZd0d8Nsg4oRKWgLn3outwlpgFHc8Q4nI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "633633644981-k34o5mo21shh7qri1jsh8dudik9oc46t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "633633644981-fcqgq7ldk6tccdfibmufsmrcio4ur84o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kzenjaya.e-val"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
