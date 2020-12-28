@@ -10,7 +10,7 @@ class _DataPageState extends State<DataPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("sasuke"),
+        title: Text("kakasi"),
         centerTitle: true,
         leading: Container(),
       ),
