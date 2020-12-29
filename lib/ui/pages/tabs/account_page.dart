@@ -6,6 +6,26 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+
+  User _auth = FirebaseAuth.instance.currentUser;
+  CollectionReference userCollection =
+      FirebaseFirestore.instance.collection("Users");
+
+  String img, name, email;
+
+  void getUserUpdate() async {
+    userCollection.doc(_auth.uid).snapshots().listen((event) {
+      name = event.data()['name'];
+      email = event.data()['email'];
+      setState(() {});
+    });
+  }
+
+  void initState() {
+    getUserUpdate();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -34,6 +54,9 @@ class _AccountPageState extends State<AccountPage> {
                     height: 152,
                     width: double.infinity,
                     child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                         color: Color(0xff2c2c2e),
                         margin: EdgeInsets.only(top: 8, left: 16, right: 16),
                         child: Container(
@@ -42,7 +65,8 @@ class _AccountPageState extends State<AccountPage> {
                             child: Column(
                               children: [
                                 Container(
-                                  padding: EdgeInsets.only(bottom: 12, right: 6),
+                                  padding:
+                                      EdgeInsets.only(bottom: 12, right: 6),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -51,7 +75,7 @@ class _AccountPageState extends State<AccountPage> {
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 16)),
-                                      Text("Kennan Trevyn Zenjaya",
+                                      Text(name ?? "",
                                           style: TextStyle(
                                               color: Color(0xff8e8e93),
                                               fontSize: 16)),
@@ -59,7 +83,8 @@ class _AccountPageState extends State<AccountPage> {
                                   ),
                                 ),
                                 Container(
-                                  padding: EdgeInsets.only(bottom: 12, right: 6),
+                                  padding:
+                                      EdgeInsets.only(bottom: 12, right: 6),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -68,7 +93,7 @@ class _AccountPageState extends State<AccountPage> {
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 16)),
-                                      Text("Kzenjaya@gmail.com",
+                                      Text(email ?? "",
                                           style: TextStyle(
                                               color: Color(0xff8e8e93),
                                               fontSize: 16)),
@@ -76,7 +101,8 @@ class _AccountPageState extends State<AccountPage> {
                                   ),
                                 ),
                                 Container(
-                                  padding: EdgeInsets.only(bottom: 12, right: 6),
+                                  padding:
+                                      EdgeInsets.only(bottom: 12, right: 6),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -130,6 +156,9 @@ class _AccountPageState extends State<AccountPage> {
                     height: 124,
                     width: double.infinity,
                     child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                         color: Color(0xff2c2c2e),
                         margin: EdgeInsets.only(top: 8, left: 16, right: 16),
                         child: Container(
@@ -171,6 +200,9 @@ class _AccountPageState extends State<AccountPage> {
                     height: 74,
                     width: double.infinity,
                     child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                         color: Color(0xff2c2c2e),
                         margin: EdgeInsets.only(top: 22, left: 16, right: 16),
                         child: Container(
@@ -179,20 +211,20 @@ class _AccountPageState extends State<AccountPage> {
                             child: Column(
                               children: [
                                 Container(
-                                  padding: EdgeInsets.only(left: 4),
+                                    padding: EdgeInsets.only(left: 4),
                                     child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("Log out",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                        )),
-                                    Icon(CupertinoIcons.right_chevron,
-                                        color: Color(0xff8e8e93))
-                                  ],
-                                ))
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("Log out",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                            )),
+                                        Icon(CupertinoIcons.right_chevron,
+                                            color: Color(0xff8e8e93))
+                                      ],
+                                    ))
                               ],
                             )))),
               ],
