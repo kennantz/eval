@@ -9,7 +9,7 @@ class _MainMenuState extends State<MainMenu> {
 
   
   int _selectedIndex = 0;
-  static List<Widget> _widgetOptions = <Widget>[AddPage(), DataPage(), AccountPage()];
+  static List<Widget> _widgetOptions = <Widget>[MenuPage(), AccountPage()];
   
   void _onItemTapped(int index){
     setState(() {
@@ -26,17 +26,13 @@ class _MainMenuState extends State<MainMenu> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.add_circle_outline),
-            title: Text("Add Data")
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            title: Text('List Data') 
+            icon: Icon(Icons.menu),
+            title: Text("Menu")
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
-            title: Text('My Account')
-          ),
+            title: Text('Account') 
+          )
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],

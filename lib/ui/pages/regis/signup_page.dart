@@ -1,11 +1,12 @@
-part of 'pages.dart';
+part of '../pages.dart';
 
-class SignInPage extends StatefulWidget {
+class SignUpPages extends StatefulWidget {
   @override
-  _SignInPageState createState() => _SignInPageState();
+  _SignUpPagesState createState() => _SignUpPagesState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _SignUpPagesState extends State<SignUpPages> {
+  final ctrlName = TextEditingController();
   final ctrlEmail = TextEditingController();
   final ctrlPassword = TextEditingController();
 
@@ -13,6 +14,7 @@ class _SignInPageState extends State<SignInPage> {
   void dispose() {
     ctrlPassword.dispose();
     ctrlEmail.dispose();
+    ctrlName.dispose();
     super.dispose();
   }
 
@@ -21,7 +23,7 @@ class _SignInPageState extends State<SignInPage> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          appBar: AppBar(title: Text("Sign In")),
+          appBar: AppBar(title: Text("SignUp")),
           body: Container(
             margin: EdgeInsets.all(10),
             child: ListView(
@@ -30,6 +32,15 @@ class _SignInPageState extends State<SignInPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(height: 40),
+                    TextFormField(
+                      controller: ctrlName,
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.account_circle),
+                          labelText: "Full Name",
+                          hintText: "Your full name",
+                          border: OutlineInputBorder()),
+                    ),
+                    SizedBox(height: 20),
                     TextFormField(
                       controller: ctrlEmail,
                       decoration: InputDecoration(
@@ -49,12 +60,13 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     SizedBox(height: 40),
                     RaisedButton.icon(
-                        icon: Icon(Icons.cloud_download),
-                        label: Text("Sign In"),
+                        icon: Icon(Icons.cloud_upload),
+                        label: Text("Sign Up"),
                         textColor: Colors.white,
                         color: Colors.blue,
                         onPressed: () async{
-                          if (ctrlEmail.text == "" ||
+                          if (ctrlName.text == "" ||
+                              ctrlEmail.text == "" ||
                               ctrlPassword.text == "") {
                             Fluttertoast.showToast(
                               msg: "Please fill all fields!",
@@ -65,8 +77,8 @@ class _SignInPageState extends State<SignInPage> {
                               fontSize: 16,
                             );
                           } else {
-                            String result = await AuthServices.signIn(ctrlEmail.text, ctrlPassword.text);
-                            if(result=="success"){
+                            String result = await AuthServices.signUp(ctrlEmail.text, ctrlPassword.text, ctrlName.text);
+                            if(result=='success'){
                               Fluttertoast.showToast(
                                 msg: "Success",
                                 toastLength: Toast.LENGTH_SHORT,
@@ -75,15 +87,8 @@ class _SignInPageState extends State<SignInPage> {
                                 textColor: Colors.white,
                                 fontSize: 16,
                               );
-                              Navigator.pushReplacement(context, 
-                                MaterialPageRoute(
-                                  builder: (context){
-                                    return MainMenu();
-                                  }
-                                )
-                              );
                             }else{
-                              Fluttertoast.showToast(
+                               Fluttertoast.showToast(
                                 msg: result,
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.BOTTOM,
@@ -92,6 +97,7 @@ class _SignInPageState extends State<SignInPage> {
                                 fontSize: 16,
                               );
                             }
+                            
                           }
                         }),
                     SizedBox(
@@ -99,13 +105,13 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     RichText(
                       text: TextSpan(
-                        text: "Not registered yet? Sign up.",
+                        text: "Already registered? Sign in.",
                         style: TextStyle(color: Colors.blue),
                         recognizer: TapGestureRecognizer()
                         ..onTap = (){
                           Navigator.pushReplacement(context, 
                             MaterialPageRoute(builder: (context){
-                              return SignUpPages();
+                              return MyApp();
                             }));
                         }
                       ),

@@ -1,11 +1,11 @@
-part of 'pages.dart';
+part of '../pages.dart';
 
-class AddPage extends StatefulWidget {
+class MenuPage extends StatefulWidget {
   @override
-  _AddPageState createState() => _AddPageState();
+  _MenuPageState createState() => _MenuPageState();
 }
 
-class _AddPageState extends State<AddPage> {
+class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
