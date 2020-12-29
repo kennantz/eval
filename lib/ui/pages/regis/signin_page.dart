@@ -10,21 +10,92 @@ class _SignInPageState extends State<SignInPage> {
   final ctrlPassword = TextEditingController();
 
   @override
-    Widget build(BuildContext context) {
-      
-      return CupertinoPageScaffold(
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled){
-            return <Widget> [
-              CupertinoSliverNavigationBar(
-                largeTitle: Text('Sign In'),
-              )
-            ];
-          },
-          body: Center(child: Text('Hellow World'),),
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+      backgroundColor: Color.fromRGBO(250, 250, 250, 1),
+      child: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            CupertinoSliverNavigationBar(
+              largeTitle: Text('Sign In', style: TextStyle(color: Colors.white)),
+              backgroundColor: Color.fromRGBO(55, 94, 204, 1),
+            )
+          ];
+        },
+        body: Container(
+          margin: EdgeInsets.all(10),
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.fromLTRB(10, 10, 10, 2),
+                padding: const EdgeInsets.all(6),
+                height: 50,
+                decoration: new BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: new BorderRadius.all(new Radius.circular(8)),
+                ),
+                child: CupertinoTextField(
+                    decoration: new BoxDecoration(
+                        border: Border.all(width: 0, color: Colors.white)),
+                    controller: ctrlEmail,
+                    placeholder: "Email address"),
+              ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(10, 2, 10, 10),
+                padding: const EdgeInsets.all(6),
+                height: 50,
+                decoration: new BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: new BorderRadius.all(new Radius.circular(8)),
+                ),
+                child: CupertinoTextField(
+                    decoration: new BoxDecoration(
+                        border: Border.all(width: 0, color: Colors.white)),
+                    controller: ctrlPassword,
+                    placeholder: "Password"),
+              ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(10, 2, 10, 10),
+                // padding: const EdgeInsets.all(6),
+                height: 50,
+                width: 400,
+                decoration: new BoxDecoration(
+                  color: Color.fromRGBO(55, 94, 204, 1),
+                  borderRadius: new BorderRadius.all(new Radius.circular(8)),
+                ),
+                child: CupertinoButton(
+                  child: Text(
+                    'SIGN IN',
+                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                    )
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(10, 300, 10, 10),
+                // padding: const EdgeInsets.all(6),
+                decoration: new BoxDecoration(
+                  borderRadius: new BorderRadius.all(new Radius.circular(8)),
+                ),
+                child: RichText(
+                      text: TextSpan(
+                        text: "Haven't joined yet?",
+                        style: TextStyle(color: Color.fromRGBO(161, 161, 161, 1)),
+                        recognizer: TapGestureRecognizer()
+                        ..onTap = (){
+                          Navigator.pushReplacement(context, 
+                            MaterialPageRoute(builder: (context){
+                              return MyApp();
+                            }));
+                        }
+                      ),
+                    )
+              ),
+            ],
+          ),
         ),
-      );
-    }
+      ),
+    );
+  }
 
   @override
   void dispose() {
@@ -39,99 +110,7 @@ class _SignInPageState extends State<SignInPage> {
   //       debugShowCheckedModeBanner: false,
   //       home: Scaffold(
   //         appBar: AppBar(title: Text("Sign In")),
-  //         body: Container(
-  //           margin: EdgeInsets.all(10),
-  //           child: ListView(
-  //             children: [
-  //               Column(
-  //                 mainAxisAlignment: MainAxisAlignment.center,
-  //                 children: <Widget>[
-  //                   SizedBox(height: 40),
-  //                   TextFormField(
-  //                     controller: ctrlEmail,
-  //                     decoration: InputDecoration(
-  //                         prefixIcon: Icon(Icons.email),
-  //                         labelText: "Email",
-  //                         hintText: "Your Email",
-  //                         border: OutlineInputBorder()),
-  //                   ),
-  //                   SizedBox(height: 20),
-  //                   TextFormField(
-  //                     controller: ctrlPassword,
-  //                     obscureText: true,
-  //                     decoration: InputDecoration(
-  //                         prefixIcon: Icon(Icons.vpn_key),
-  //                         labelText: "Password",
-  //                         border: OutlineInputBorder()),
-  //                   ),
-  //                   SizedBox(height: 40),
-  //                   RaisedButton.icon(
-  //                       icon: Icon(Icons.cloud_download),
-  //                       label: Text("Sign In"),
-  //                       textColor: Colors.white,
-  //                       color: Colors.blue,
-  //                       onPressed: () async{
-  //                         if (ctrlEmail.text == "" ||
-  //                             ctrlPassword.text == "") {
-  //                           Fluttertoast.showToast(
-  //                             msg: "Please fill all fields!",
-  //                             toastLength: Toast.LENGTH_SHORT,
-  //                             gravity: ToastGravity.BOTTOM,
-  //                             backgroundColor: Colors.red,
-  //                             textColor: Colors.white,
-  //                             fontSize: 16,
-  //                           );
-  //                         } else {
-  //                           String result = await AuthServices.signIn(ctrlEmail.text, ctrlPassword.text);
-  //                           if(result=="success"){
-  //                             Fluttertoast.showToast(
-  //                               msg: "Success",
-  //                               toastLength: Toast.LENGTH_SHORT,
-  //                               gravity: ToastGravity.BOTTOM,
-  //                               backgroundColor: Colors.green,
-  //                               textColor: Colors.white,
-  //                               fontSize: 16,
-  //                             );
-  //                             Navigator.pushReplacement(context, 
-  //                               MaterialPageRoute(
-  //                                 builder: (context){
-  //                                   return MainMenu();
-  //                                 }
-  //                               )
-  //                             );
-  //                           }else{
-  //                             Fluttertoast.showToast(
-  //                               msg: result,
-  //                               toastLength: Toast.LENGTH_SHORT,
-  //                               gravity: ToastGravity.BOTTOM,
-  //                               backgroundColor: Colors.green,
-  //                               textColor: Colors.white,
-  //                               fontSize: 16,
-  //                             );
-  //                           }
-  //                         }
-  //                       }),
-  //                   SizedBox(
-  //                     height: 25,
-  //                   ),
-  //                   RichText(
-  //                     text: TextSpan(
-  //                       text: "Not registered yet? Sign up.",
-  //                       style: TextStyle(color: Colors.blue),
-  //                       recognizer: TapGestureRecognizer()
-  //                       ..onTap = (){
-  //                         Navigator.pushReplacement(context, 
-  //                           MaterialPageRoute(builder: (context){
-  //                             return SignUpPages();
-  //                           }));
-  //                       }
-  //                     ),
-  //                   )
-  //                 ],
-  //               )
-  //             ],
-  //           ),
-  //         ),
+
   //       ));
   // }
 }
