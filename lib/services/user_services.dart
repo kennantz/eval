@@ -10,6 +10,7 @@ class UserServices {
         'uid' : users.uid,
         'email' : users.email,
         'name' : users.name,
+        'phone' : users.phone,
         'profilePicture' : users.profilePicture ?? ""
       }
     );

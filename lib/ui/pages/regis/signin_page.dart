@@ -64,6 +64,47 @@ class _SignInPageState extends State<SignInPage> {
                   borderRadius: new BorderRadius.all(new Radius.circular(8)),
                 ),
                 child: CupertinoButton(
+                  onPressed: () async{
+                          if (ctrlEmail.text == "" ||
+                              ctrlPassword.text == "") {
+                            Fluttertoast.showToast(
+                              msg: "Please fill all fields!",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16,
+                            );
+                          } else {
+                            String result = await AuthServices.signIn(ctrlEmail.text, ctrlPassword.text);
+                            if(result=="success"){
+                              Fluttertoast.showToast(
+                                msg: "DUOORRRRR MEMEX!",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: Colors.green,
+                                textColor: Colors.white,
+                                fontSize: 16,
+                              );
+                              Navigator.pushReplacement(context, 
+                                MaterialPageRoute(
+                                  builder: (context){
+                                    return MainMenu();
+                                  }
+                                )
+                              );
+                            }else{
+                              Fluttertoast.showToast(
+                                msg: result,
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: Colors.green,
+                                textColor: Colors.white,
+                                fontSize: 16,
+                              );
+                            }
+                          }
+                        },
                   child: Text(
                     'SIGN IN',
                     style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
@@ -103,14 +144,4 @@ class _SignInPageState extends State<SignInPage> {
     ctrlEmail.dispose();
     super.dispose();
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return MaterialApp(
-  //       debugShowCheckedModeBanner: false,
-  //       home: Scaffold(
-  //         appBar: AppBar(title: Text("Sign In")),
-
-  //       ));
-  // }
 }
