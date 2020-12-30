@@ -21,7 +21,7 @@ class _MenuPageState extends State<MenuPage> {
           child: Column(
             children: [
               Container(
-                height: 300,
+                height: 280,
                 width: double.infinity,
                 child: Card(
                   shape: RoundedRectangleBorder(
@@ -50,7 +50,7 @@ class _MenuPageState extends State<MenuPage> {
                                   Text(
                                     "Get Your Car Parked",
                                     style: TextStyle(
-                                        color: Colors.black, fontSize: 25),
+                                        color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               )
@@ -63,7 +63,7 @@ class _MenuPageState extends State<MenuPage> {
                 ),
               ),
               Container(
-                height: 300,
+                height: 280,
                 width: double.infinity,
                 child: Card(
                   shape: RoundedRectangleBorder(
@@ -90,9 +90,9 @@ class _MenuPageState extends State<MenuPage> {
                               Row(
                                 children: [
                                   Text(
-                                    "Get Your Car Ready In Loby",
+                                    "Get Your Car Ready\nIn Loby",
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 25),
+                                        color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)
                                   ),
                                 ],
                               )

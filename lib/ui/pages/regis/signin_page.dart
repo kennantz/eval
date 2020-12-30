@@ -38,6 +38,8 @@ class _SignInPageState extends State<SignInPage> {
                     decoration: new BoxDecoration(
                         border: Border.all(width: 0, color: Colors.white)),
                     controller: ctrlEmail,
+                    style: TextStyle(color: Colors.black),
+                    placeholderStyle: TextStyle(color: Colors.grey[300]),
                     placeholder: "Email address"),
               ),
               Container(
@@ -52,6 +54,9 @@ class _SignInPageState extends State<SignInPage> {
                     decoration: new BoxDecoration(
                         border: Border.all(width: 0, color: Colors.white)),
                     controller: ctrlPassword,
+                    obscureText: true,
+                    style: TextStyle(color: Colors.black),
+                    placeholderStyle: TextStyle(color: Colors.grey[300]),
                     placeholder: "Password"),
               ),
               Container(

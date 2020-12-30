@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:eval/ui/pages/pages.dart';
 
+final GlobalKey<NavigatorState> firstTabNavKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> secondTabNavKey = GlobalKey<NavigatorState>();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

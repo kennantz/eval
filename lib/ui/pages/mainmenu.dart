@@ -19,25 +19,47 @@ class _MainMenuState extends State<MainMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+    return CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
-            title: Text("Menu")
+            icon: Icon(CupertinoIcons.car),
+            title: Text('Menu'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            title: Text('Account') 
+            icon: Icon(CupertinoIcons.profile_circled),
+            title: Text('Account'),
           )
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
       ),
+      tabBuilder: (context, index) {
+        if (index == 0) {
+          return CupertinoTabView(
+            navigatorKey: firstTabNavKey,
+            builder: (BuildContext context) => MenuPage(),
+          );
+        } else {
+          return CupertinoTabView(
+            navigatorKey: secondTabNavKey,
+            builder: (BuildContext context) => AccountPage(),
+          );
+        } 
+      },
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.menu),
+      //       title: Text("Menu")
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.account_circle),
+      //       title: Text('Account') 
+      //     )
+      //   ],
+      //   currentIndex: _selectedIndex,
+      //   selectedItemColor: Colors.amber[800],
+      //   onTap: _onItemTapped,
+      // ),
     );
   }
 }

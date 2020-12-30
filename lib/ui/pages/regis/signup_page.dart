@@ -52,6 +52,7 @@ class _SignUpPagesState extends State<SignUpPages> {
                     decoration: new BoxDecoration(
                         border: Border.all(width: 0, color: Colors.white)),
                     controller: ctrlName,
+                    placeholderStyle: TextStyle(color: Colors.grey[300]),
                     placeholder: "Full Name"),
               ),
               Container(
@@ -66,6 +67,8 @@ class _SignUpPagesState extends State<SignUpPages> {
                     decoration: new BoxDecoration(
                         border: Border.all(width: 0, color: Colors.white)),
                     controller: ctrlEmail,
+                    style: TextStyle(color: Colors.black),
+                    placeholderStyle: TextStyle(color: Colors.grey[300]),
                     placeholder: "Email address"),
               ),
               Container(
@@ -80,6 +83,8 @@ class _SignUpPagesState extends State<SignUpPages> {
                     decoration: new BoxDecoration(
                         border: Border.all(width: 0, color: Colors.white)),
                     controller: ctrlPhone,
+                    style: TextStyle(color: Colors.black),
+                    placeholderStyle: TextStyle(color: Colors.grey[300]),
                     placeholder: "Phone number"),
               ),
               Container(
@@ -94,6 +99,9 @@ class _SignUpPagesState extends State<SignUpPages> {
                     decoration: new BoxDecoration(
                         border: Border.all(width: 0, color: Colors.white)),
                     controller: ctrlPassword,
+                    obscureText: true,
+                    style: TextStyle(color: Colors.black),
+                    placeholderStyle: TextStyle(color: Colors.grey[300]),
                     placeholder: "Password"),
               ),
               Container(
@@ -108,6 +116,9 @@ class _SignUpPagesState extends State<SignUpPages> {
                     decoration: new BoxDecoration(
                         border: Border.all(width: 0, color: Colors.white)),
                     controller: ctrlConfPass,
+                    obscureText: true,
+                    style: TextStyle(color: Colors.black),
+                    placeholderStyle: TextStyle(color: Colors.grey[300]),
                     placeholder: "Confirm password"),
               ),
               Container(
