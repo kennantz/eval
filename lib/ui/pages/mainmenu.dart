@@ -44,22 +44,7 @@ class _MainMenuState extends State<MainMenu> {
             builder: (BuildContext context) => AccountPage(),
           );
         } 
-      },
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: const <BottomNavigationBarItem>[
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.menu),
-      //       title: Text("Menu")
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.account_circle),
-      //       title: Text('Account') 
-      //     )
-      //   ],
-      //   currentIndex: _selectedIndex,
-      //   selectedItemColor: Colors.amber[800],
-      //   onTap: _onItemTapped,
-      // ),
+      }
     );
   }
 }

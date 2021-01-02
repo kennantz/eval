@@ -31,7 +31,8 @@ class _SignUpPagesState extends State<SignUpPages> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             CupertinoSliverNavigationBar(
-              largeTitle: Text('Sign Up', style: TextStyle(color: Colors.white)),
+              largeTitle:
+                  Text('Sign Up', style: TextStyle(color: Colors.white)),
               backgroundColor: Color.fromRGBO(55, 94, 204, 1),
             )
           ];
@@ -131,87 +132,105 @@ class _SignUpPagesState extends State<SignUpPages> {
                   borderRadius: new BorderRadius.all(new Radius.circular(8)),
                 ),
                 child: CupertinoButton(
-                        onPressed: () async{
-                          if (ctrlName.text == "" ||
-                              ctrlEmail.text == "" ||
-                              ctrlPassword.text == "" ||
-                              ctrlConfPass.text == "" ||
-                              ctrlPhone.text == "" ) {
+                    onPressed: () async {
+                      if (ctrlName.text == "" ||
+                          ctrlEmail.text == "" ||
+                          ctrlPassword.text == "" ||
+                          ctrlConfPass.text == "" ||
+                          ctrlPhone.text == "") {
+                        Fluttertoast.showToast(
+                          msg: "Please fill all fields!",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                          fontSize: 16,
+                        );
+                      } else {
+                        if (ctrlPassword.text == ctrlConfPass.text) {
+                          String result = await AuthServices.signUp(
+                              ctrlEmail.text,
+                              ctrlPassword.text,
+                              ctrlName.text,
+                              ctrlPhone.text);
+                          if (result == 'success') {
                             Fluttertoast.showToast(
-                              msg: "Please fill all fields!",
+                              msg: "DUAR MEMEK!",
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
-                              backgroundColor: Colors.red,
+                              backgroundColor: Colors.green,
                               textColor: Colors.white,
                               fontSize: 16,
                             );
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return MainMenu();
+                            }));
                           } else {
-                            if (ctrlPassword.text == ctrlConfPass.text) 
-                            {
-                            String result = await AuthServices.signUp(ctrlEmail.text, ctrlPassword.text, ctrlName.text, ctrlPhone.text);
-                            if(result=='success'){
-                              Fluttertoast.showToast(
-                                msg: "DUAR MEMEK!",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                backgroundColor: Colors.green,
-                                textColor: Colors.white,
-                                fontSize: 16,
-                              );
-                            }else{
-                               Fluttertoast.showToast(
-                                msg: result,
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                backgroundColor: Colors.green,
-                                textColor: Colors.white,
-                                fontSize: 16,
-                              );
-                            }
-                            } else {
-                              Fluttertoast.showToast(
-                              msg: "Password do not match!",
+                            Fluttertoast.showToast(
+                              msg: result,
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
-                              backgroundColor: Colors.red,
+                              backgroundColor: Colors.green,
                               textColor: Colors.white,
                               fontSize: 16,
-                              );
-                            }
+                            );
                           }
-                        },
-                  child: Text(
-                    'SIGN UP',
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-                    
-                    )
-                ),
+                        } else {
+                          Fluttertoast.showToast(
+                            msg: "Password do not match!",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16,
+                          );
+                        }
+                      }
+                    },
+                    child: Text(
+                      'SIGN UP',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white),
+                    )),
               ),
               Container(
-                margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                // padding: const EdgeInsets.all(6),
-                decoration: new BoxDecoration(
-                  borderRadius: new BorderRadius.all(new Radius.circular(8)),
-                ),
-                child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        text: "By signing up, you confirm that you agree to \nour Terms of Use and have read and \nunderstood our Privacy Policy",
-                        style: TextStyle(color: Color.fromRGBO(161, 161, 161, 1)),
+                  margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  // padding: const EdgeInsets.all(6),
+                  decoration: new BoxDecoration(
+                    borderRadius: new BorderRadius.all(new Radius.circular(8)),
+                  ),
+                  child: RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      text:
+                          "By signing up, you confirm that you agree to \nour Terms of Use and have read and \nunderstood our Privacy Policy",
+                      style: TextStyle(color: Color.fromRGBO(161, 161, 161, 1)),
+                    ),
+                  )),
+              Container(
+                  margin: const EdgeInsets.fromLTRB(10, 50, 10, 10),
+                  // padding: const EdgeInsets.all(6),
+                  decoration: new BoxDecoration(
+                    borderRadius: new BorderRadius.all(new Radius.circular(8)),
+                  ),
+                  child: RichText(
+                    text: TextSpan(
+                        text: "Haven't joined yet?",
+                        style:
+                            TextStyle(color: Color.fromRGBO(161, 161, 161, 1)),
                         recognizer: TapGestureRecognizer()
-                        ..onTap = (){
-                          Navigator.pushReplacement(context, 
-                            MaterialPageRoute(builder: (context){
-                              return MyApp();
+                          ..onTap = () {
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return SignInPage();
                             }));
-                        }
-                      ),
-                    )
-              ),
+                          }),
+                  )),
             ],
           ),
         ),
       ),
     );
   }
-  }
+}

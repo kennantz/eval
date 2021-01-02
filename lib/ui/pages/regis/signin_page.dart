@@ -6,6 +6,7 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+
   final ctrlEmail = TextEditingController();
   final ctrlPassword = TextEditingController();
 
@@ -130,7 +131,7 @@ class _SignInPageState extends State<SignInPage> {
                         ..onTap = (){
                           Navigator.pushReplacement(context, 
                             MaterialPageRoute(builder: (context){
-                              return MyApp();
+                              return SignUpPages();
                             }));
                         }
                       ),

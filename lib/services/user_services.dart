@@ -11,7 +11,10 @@ class UserServices {
         'email' : users.email,
         'name' : users.name,
         'phone' : users.phone,
-        'profilePicture' : users.profilePicture ?? ""
+        'balance' : 0,
+        'selected car' : "",
+        'number of cars' : 0,
+        'current booking' : "",
       }
     );
   } 

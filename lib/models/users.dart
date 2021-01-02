@@ -6,11 +6,10 @@ class Users extends Equatable{
   final String email;
   final String name;
   final String phone;
-  final String profilePicture;
 
-  Users(this.uid, this.email, {this.name, this.phone, this.profilePicture});
+  Users(this.uid, this.email, {this.name, this.phone});
 
   @override
-  List<Object> get props => [uid, email, name, phone, profilePicture];
+  List<Object> get props => [uid, email, name, phone];
   
 }

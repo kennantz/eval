@@ -6,7 +6,6 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-
   User _auth = FirebaseAuth.instance.currentUser;
   CollectionReference userCollection =
       FirebaseFirestore.instance.collection("Users");
@@ -196,37 +195,49 @@ class _AccountPageState extends State<AccountPage> {
                                     ))
                               ],
                             )))),
-                Container(
-                    height: 74,
-                    width: double.infinity,
-                    child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        color: Color(0xff2c2c2e),
-                        margin: EdgeInsets.only(top: 22, left: 16, right: 16),
-                        child: Container(
-                            padding:
-                                EdgeInsets.only(top: 12, left: 12, right: 12),
-                            child: Column(
-                              children: [
-                                Container(
-                                    padding: EdgeInsets.only(left: 4),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("Log out",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                            )),
-                                        Icon(CupertinoIcons.right_chevron,
-                                            color: Color(0xff8e8e93))
-                                      ],
-                                    ))
-                              ],
-                            )))),
+                GestureDetector(
+                    onTap: () async {
+                      await AuthServices.signOut().then((value) {
+                        if (value) {
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) {
+                            return SignInPage();
+                          }));
+                        } else {}
+                      });
+                    },
+                    child: Container(
+                        height: 74,
+                        width: double.infinity,
+                        child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            color: Color(0xff2c2c2e),
+                            margin:
+                                EdgeInsets.only(top: 22, left: 16, right: 16),
+                            child: Container(
+                                padding: EdgeInsets.only(
+                                    top: 12, left: 12, right: 12),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                        padding: EdgeInsets.only(left: 4),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Log out",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                )),
+                                            Icon(CupertinoIcons.right_chevron,
+                                                color: Color(0xff8e8e93))
+                                          ],
+                                        ))
+                                  ],
+                                )))))
               ],
             ),
           )),

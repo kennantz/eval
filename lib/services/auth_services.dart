@@ -1,6 +1,6 @@
 part of 'services.dart';
 
-class AuthServices{
+class AuthServices {
 
   static FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -33,6 +33,14 @@ class AuthServices{
     }
     
     return msg;
+  }
+
+  static Future<bool> signOut() async {
+    bool result = false;
+    await auth.signOut().whenComplete(
+          () => result = true,
+        );
+    return result;
   }
 
 }
