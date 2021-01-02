@@ -7,7 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:eval/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:barcode_scan/barcode_scan.dart';
+import 'package:flutter/services.dart';
 
+part 'action/scan_qr.dart';
 part 'regis/signin_page.dart';
 part 'regis/signup_page.dart';
 part 'tabs/account_page.dart';
