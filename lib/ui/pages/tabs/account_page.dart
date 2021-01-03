@@ -45,7 +45,7 @@ class _AccountPageState extends State<AccountPage> {
                     children: [
                       Text("PERSONAL INFORMATION",
                           style:
-                              TextStyle(color: Color(0xff8e8e93), fontSize: 12))
+                              TextStyle(color: Color(0xff8e8e93), fontSize: 12, decoration: TextDecoration.none))
                     ],
                   ),
                 ),
@@ -147,7 +147,7 @@ class _AccountPageState extends State<AccountPage> {
                     children: [
                       Text("E-VAL WALLET",
                           style:
-                              TextStyle(color: Color(0xff8e8e93), fontSize: 12))
+                              TextStyle(color: Color(0xff8e8e93), fontSize: 12, decoration: TextDecoration.none))
                     ],
                   ),
                 ),
