@@ -73,8 +73,10 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
                 child: Row(
                   children: [
                     Text("TOTAL AMOUNT",
-                        style:
-                            TextStyle(color: Color(0xff8e8e93), fontSize: 12))
+                        style: TextStyle(
+                            color: Color(0xff8e8e93),
+                            fontSize: 12,
+                            decoration: TextDecoration.none))
                   ],
                 ),
               ),
@@ -139,8 +141,10 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
                 child: Row(
                   children: [
                     Text("Car Information",
-                        style:
-                            TextStyle(color: Color(0xff8e8e93), fontSize: 12))
+                        style: TextStyle(
+                            color: Color(0xff8e8e93),
+                            fontSize: 12,
+                            decoration: TextDecoration.none))
                   ],
                 ),
               ),
