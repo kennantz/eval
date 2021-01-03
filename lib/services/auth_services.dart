@@ -43,4 +43,17 @@ class AuthServices {
     return result;
   }
 
+  static Future<String> updateSelectedCar(String carID) async{
+    await Firebase.initializeApp();
+    String msg = "";
+    try{
+      await CarServices.updateSelectedCar(carID);
+      msg = "success";
+    }catch(e){
+      msg = e.toString();
+    }
+
+    return msg;
+  }
+
 }

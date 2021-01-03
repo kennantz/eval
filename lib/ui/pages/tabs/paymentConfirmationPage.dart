@@ -13,14 +13,28 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
   User _auth = FirebaseAuth.instance.currentUser;
   CollectionReference userCollection =
       FirebaseFirestore.instance.collection("Users");
+  CollectionReference carCollection =
+      FirebaseFirestore.instance.collection("Cars");
 
   String selectedCar;
+  String brand, model, color, plateNumber;
   int balance;
 
   void getUserUpdate() async {
     userCollection.doc(_auth.uid).snapshots().listen((event) {
-      balance = event.data()['balance'];  
+      balance = event.data()['balance'];
       selectedCar = event.data()['selected car'];
+      getSelectedCarData(selectedCar);
+      setState(() {});
+    });
+  }
+
+  void getSelectedCarData(carID) async {
+    carCollection.doc(carID).snapshots().listen((event) {
+      brand = event.data()['brand'];
+      model = event.data()['model'];
+      color = event.data()['color'];
+      plateNumber = event.data()['plate number'];
       setState(() {});
     });
   }
@@ -119,7 +133,10 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                NumberFormat.currency(locale: 'id', decimalDigits: 0).format(balance) ?? "",
+                                NumberFormat.currency(
+                                            locale: 'id', decimalDigits: 0)
+                                        .format(balance) ??
+                                    "",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 40,
@@ -191,7 +208,7 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
                                     Text("Plate Number",
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 16)),
-                                    Text("j 4 GO",
+                                    Text(plateNumber ?? "",
                                         style: TextStyle(
                                             color: Color(0xff8e8e93),
                                             fontSize: 16)),
@@ -207,7 +224,7 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
                                     Text("Brand",
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 16)),
-                                    Text("Ferrari",
+                                    Text(brand ?? "",
                                         style: TextStyle(
                                             color: Color(0xff8e8e93),
                                             fontSize: 16)),
@@ -223,7 +240,7 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
                                     Text("model",
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 16)),
-                                    Text("488 GTB",
+                                    Text(model ?? "",
                                         style: TextStyle(
                                             color: Color(0xff8e8e93),
                                             fontSize: 16)),
@@ -242,7 +259,7 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
                                           color: Colors.white, fontSize: 16),
                                     ),
                                     Text(
-                                      "Red",
+                                      color ?? "",
                                       style: TextStyle(
                                           color: Color(0xff8e8e93),
                                           fontSize: 16),
