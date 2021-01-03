@@ -10,12 +10,23 @@ class _AccountPageState extends State<AccountPage> {
   CollectionReference userCollection =
       FirebaseFirestore.instance.collection("Users");
 
-  String img, name, email;
+  String img, name, email, phoneNumber, selectedCar;
+  int balance;
 
   void getUserUpdate() async {
     userCollection.doc(_auth.uid).snapshots().listen((event) {
       name = event.data()['name'];
       email = event.data()['email'];
+      phoneNumber = event.data()['phone'];
+      balance = event.data()['balance'];
+      selectedCar = event.data()['selected car'];
+
+      if (selectedCar == "") {
+        selectedCar = "None";
+      } else {
+        selectedCar = "Model";
+      }
+
       setState(() {});
     });
   }
@@ -44,8 +55,10 @@ class _AccountPageState extends State<AccountPage> {
                   child: Row(
                     children: [
                       Text("PERSONAL INFORMATION",
-                          style:
-                              TextStyle(color: Color(0xff8e8e93), fontSize: 12, decoration: TextDecoration.none))
+                          style: TextStyle(
+                              color: Color(0xff8e8e93),
+                              fontSize: 12,
+                              decoration: TextDecoration.none))
                     ],
                   ),
                 ),
@@ -110,35 +123,47 @@ class _AccountPageState extends State<AccountPage> {
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 16)),
-                                      Text("+6282132306383",
+                                      Text(phoneNumber ?? "",
                                           style: TextStyle(
                                               color: Color(0xff8e8e93),
                                               fontSize: 16)),
                                     ],
                                   ),
                                 ),
-                                Container(
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("Current Car",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16)),
-                                      Row(
-                                        children: [
-                                          Text("488 GTB",
-                                              style: TextStyle(
-                                                  color: Color(0xff8e8e93),
-                                                  fontSize: 16)),
-                                          Icon(CupertinoIcons.right_chevron,
-                                              color: Color(0xff8e8e93))
-                                        ],
-                                      )
-                                    ],
+                                GestureDetector(
+                                  onTap: () {
+                                    // Change the color of the container beneath
+                                    setState(() {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => ListCarPage(),
+                                          ));
+                                    });
+                                  },
+                                  child: Container(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("Current Car",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16)),
+                                        Row(
+                                          children: [
+                                            Text(selectedCar ?? "",
+                                                style: TextStyle(
+                                                    color: Color(0xff8e8e93),
+                                                    fontSize: 16)),
+                                            Icon(CupertinoIcons.right_chevron,
+                                                color: Color(0xff8e8e93))
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
+                                )
                               ],
                             )))),
                 Container(
@@ -146,8 +171,10 @@ class _AccountPageState extends State<AccountPage> {
                   child: Row(
                     children: [
                       Text("E-VAL WALLET",
-                          style:
-                              TextStyle(color: Color(0xff8e8e93), fontSize: 12, decoration: TextDecoration.none))
+                          style: TextStyle(
+                              color: Color(0xff8e8e93),
+                              fontSize: 12,
+                              decoration: TextDecoration.none))
                     ],
                   ),
                 ),
@@ -171,7 +198,12 @@ class _AccountPageState extends State<AccountPage> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text("Rp40.000",
+                                        Text(
+                                            NumberFormat.currency(
+                                                        locale: 'id',
+                                                        decimalDigits: 0)
+                                                    .format(balance) ??
+                                                "",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 40,

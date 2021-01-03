@@ -10,6 +10,26 @@ class PaymentConfirmationPage extends StatefulWidget {
 }
 
 class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
+  User _auth = FirebaseAuth.instance.currentUser;
+  CollectionReference userCollection =
+      FirebaseFirestore.instance.collection("Users");
+
+  String selectedCar;
+  int balance;
+
+  void getUserUpdate() async {
+    userCollection.doc(_auth.uid).snapshots().listen((event) {
+      balance = event.data()['balance'];  
+      selectedCar = event.data()['selected car'];
+      setState(() {});
+    });
+  }
+
+  void initState() {
+    getUserUpdate();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -52,7 +72,7 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
                               Row(
                                 children: [
                                   Text(
-                                    "#jlej41412414",
+                                    "#" + widget.bookingCode,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 12,
@@ -99,7 +119,7 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "30.000",
+                                NumberFormat.currency(locale: 'id', decimalDigits: 0).format(balance) ?? "",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 40,
@@ -171,7 +191,7 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
                                     Text("Plate Number",
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 16)),
-                                    Text("",
+                                    Text("j 4 GO",
                                         style: TextStyle(
                                             color: Color(0xff8e8e93),
                                             fontSize: 16)),
@@ -187,7 +207,7 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
                                     Text("Brand",
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 16)),
-                                    Text("",
+                                    Text("Ferrari",
                                         style: TextStyle(
                                             color: Color(0xff8e8e93),
                                             fontSize: 16)),
@@ -203,7 +223,7 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
                                     Text("model",
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 16)),
-                                    Text("",
+                                    Text("488 GTB",
                                         style: TextStyle(
                                             color: Color(0xff8e8e93),
                                             fontSize: 16)),
@@ -213,6 +233,8 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
                               Container(
                                 padding: EdgeInsets.only(bottom: 12, right: 6),
                                 child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "Color",
@@ -220,7 +242,7 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
                                           color: Colors.white, fontSize: 16),
                                     ),
                                     Text(
-                                      "",
+                                      "Red",
                                       style: TextStyle(
                                           color: Color(0xff8e8e93),
                                           fontSize: 16),
