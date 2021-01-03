@@ -6,7 +6,6 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-
   final ctrlEmail = TextEditingController();
   final ctrlPassword = TextEditingController();
 
@@ -18,7 +17,8 @@ class _SignInPageState extends State<SignInPage> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             CupertinoSliverNavigationBar(
-              largeTitle: Text('Sign In', style: TextStyle(color: Colors.white)),
+              largeTitle:
+                  Text('Sign In', style: TextStyle(color: Colors.white)),
               backgroundColor: Color.fromRGBO(55, 94, 204, 1),
             )
           ];
@@ -70,73 +70,69 @@ class _SignInPageState extends State<SignInPage> {
                   borderRadius: new BorderRadius.all(new Radius.circular(8)),
                 ),
                 child: CupertinoButton(
-                  onPressed: () async{
-                          if (ctrlEmail.text == "" ||
-                              ctrlPassword.text == "") {
-                            Fluttertoast.showToast(
-                              msg: "Please fill all fields!",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16,
-                            );
-                          } else {
-                            String result = await AuthServices.signIn(ctrlEmail.text, ctrlPassword.text);
-                            if(result=="success"){
-                              Fluttertoast.showToast(
-                                msg: "DUOORRRRR MEMEX!",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                backgroundColor: Colors.green,
-                                textColor: Colors.white,
-                                fontSize: 16,
-                              );
-                              Navigator.pushReplacement(context, 
-                                MaterialPageRoute(
-                                  builder: (context){
-                                    return MainMenu();
-                                  }
-                                )
-                              );
-                            }else{
-                              Fluttertoast.showToast(
-                                msg: result,
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                backgroundColor: Colors.green,
-                                textColor: Colors.white,
-                                fontSize: 16,
-                              );
-                            }
-                          }
-                        },
-                  child: Text(
-                    'SIGN IN',
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-                    )
-                ),
+                    onPressed: () async {
+                      if (ctrlEmail.text == "" || ctrlPassword.text == "") {
+                        Fluttertoast.showToast(
+                          msg: "Please fill all fields!",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                          fontSize: 16,
+                        );
+                      } else {
+                        String result = await AuthServices.signIn(
+                            ctrlEmail.text, ctrlPassword.text);
+                        if (result == "success") {
+                          Fluttertoast.showToast(
+                            msg: "DUOORRRRR MEMEX!",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                            fontSize: 16,
+                          );
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) {
+                            return MainMenu();
+                          }));
+                        } else {
+                          Fluttertoast.showToast(
+                            msg: result,
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                            fontSize: 16,
+                          );
+                        }
+                      }
+                    },
+                    child: Text(
+                      'SIGN IN',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white),
+                    )),
               ),
               Container(
-                margin: const EdgeInsets.fromLTRB(10, 300, 10, 10),
-                // padding: const EdgeInsets.all(6),
-                decoration: new BoxDecoration(
-                  borderRadius: new BorderRadius.all(new Radius.circular(8)),
-                ),
-                child: RichText(
-                      text: TextSpan(
+                  margin: const EdgeInsets.fromLTRB(10, 300, 10, 10),
+                  // padding: const EdgeInsets.all(6),
+                  decoration: new BoxDecoration(
+                    borderRadius: new BorderRadius.all(new Radius.circular(8)),
+                  ),
+                  child: RichText(
+                    text: TextSpan(
                         text: "Haven't joined yet?",
-                        style: TextStyle(color: Color.fromRGBO(161, 161, 161, 1)),
+                        style:
+                            TextStyle(color: Color.fromRGBO(161, 161, 161, 1)),
                         recognizer: TapGestureRecognizer()
-                        ..onTap = (){
-                          Navigator.pushReplacement(context, 
-                            MaterialPageRoute(builder: (context){
+                          ..onTap = () {
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
                               return SignUpPages();
                             }));
-                        }
-                      ),
-                    )
-              ),
+                          }),
+                  )),
             ],
           ),
         ),
