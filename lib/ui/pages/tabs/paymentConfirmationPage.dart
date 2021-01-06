@@ -16,14 +16,18 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
   CollectionReference carCollection =
       FirebaseFirestore.instance.collection("Cars");
 
+  String userID;
   String selectedCar;
   String brand, model, color, plateNumber;
   int balance;
+
+  final timestamp = DateTime.now().millisecondsSinceEpoch.toString();
 
   void getUserUpdate() async {
     userCollection.doc(_auth.uid).snapshots().listen((event) {
       balance = event.data()['balance'];
       selectedCar = event.data()['selected car'];
+      userID = _auth.uid;
       getSelectedCarData(selectedCar);
       setState(() {});
     });
@@ -290,48 +294,42 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
                   borderRadius: new BorderRadius.all(new Radius.circular(8)),
                 ),
                 child: CupertinoButton(
-                    // onPressed: () async {
-                    //   if (ctrlEmail.text == "" || ctrlPassword.text == "") {
-                    //     Fluttertoast.showToast(
-                    //       msg: "Please fill all fields!",
-                    //       toastLength: Toast.LENGTH_SHORT,
-                    //       gravity: ToastGravity.BOTTOM,
-                    //       backgroundColor: Colors.red,
-                    //       textColor: Colors.white,
-                    //       fontSize: 16,
-                    //     );
-                    //   } else {
-                    //     String result = await AuthServices.signIn(
-                    //         ctrlEmail.text, ctrlPassword.text);
-                    //     if (result == "success") {
-                    //       Fluttertoast.showToast(
-                    //         msg: "DUOORRRRR MEMEX!",
-                    //         toastLength: Toast.LENGTH_SHORT,
-                    //         gravity: ToastGravity.BOTTOM,
-                    //         backgroundColor: Colors.green,
-                    //         textColor: Colors.white,
-                    //         fontSize: 16,
-                    //       );
-                    //       Navigator.pushReplacement(context,
-                    //           MaterialPageRoute(builder: (context) {
-                    //         return MainMenu();
-                    //       }));
-                    //     } else {
-                    //       Fluttertoast.showToast(
-                    //         msg: result,
-                    //         toastLength: Toast.LENGTH_SHORT,
-                    //         gravity: ToastGravity.BOTTOM,
-                    //         backgroundColor: Colors.green,
-                    //         textColor: Colors.white,
-                    //         fontSize: 16,
-                    //       );
-                    //     }
-                    //   }
-                    // },
+                    onPressed: () async {
+
+                      if (balance < 30000) {
+
+                        // BALANCE GAK CUKUP TOP UP WOI!
+                        print("Duar ga cukup");
+
+                      } else {
+
+                        // HIYA CUKUP..
+
+                        balance -= 30000;
+
+                        await Firebase.initializeApp();
+
+                        String msg = "";
+                        try {
+                          await PaymentServices.updateBooking(
+                              widget.bookingCode,
+                              userID,
+                              timestamp,
+                              selectedCar,
+                              balance);
+                          msg = "success";
+                        } catch (e) {
+                          msg = e.toString();
+                        }
+                        Navigator.pop(context);
+                        return msg;
+                      }
+
+                    },
                     child: Text(
-                  'Order',
-                  style: TextStyle(color: Colors.white),
-                )),
+                      'Order',
+                      style: TextStyle(color: Colors.white),
+                    )),
               ),
             ],
           ),

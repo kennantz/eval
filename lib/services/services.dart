@@ -7,3 +7,4 @@ import 'package:eval/extensions/extensions.dart';
 part 'auth_services.dart';
 part "user_services.dart";
 part "car_services.dart";
+part "payment_services.dart";

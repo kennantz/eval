@@ -7,7 +7,35 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
 
-  String result;
+  User _auth = FirebaseAuth.instance.currentUser;
+  CollectionReference userCollection =
+      FirebaseFirestore.instance.collection("Users");
+
+  String result, currentBooking;
+
+  Color bookingCardColor = Color(0xff2c2c2e);
+  Color requestCardColor = Color(0xff2c2c2e);
+
+  void getBookingState() async {
+    userCollection.doc(_auth.uid).snapshots().listen((event) {
+      currentBooking = event.data()['current booking'];
+
+      if (currentBooking == "") {
+        bookingCardColor = Colors.blue;
+        requestCardColor = Color(0xff2c2c2e);
+      } else {
+        bookingCardColor = Color(0xff2c2c2e);
+        requestCardColor = Colors.blue;
+      }
+
+      setState(() {});
+    });
+  }
+
+  void initState() {
+    getBookingState();
+    super.initState();
+  }
 
   Future _scanQR() async {
     try {
@@ -59,7 +87,13 @@ class _MenuPageState extends State<MenuPage> {
             children: [
               GestureDetector(
                 onTap: () {
-                  _scanQR();
+
+                  if (currentBooking == "") {
+                    _scanQR();
+                  } else {
+                    
+                  }
+                  
                 },
                 child: Container(
                   height: 280,
@@ -68,7 +102,7 @@ class _MenuPageState extends State<MenuPage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    color: Colors.blue,
+                    color: bookingCardColor,
                     margin: EdgeInsets.only(top: 8, left: 16, right: 16),
                     child: Container(
                       padding: EdgeInsets.only(top: 14, left: 18, right: 12),
@@ -82,7 +116,7 @@ class _MenuPageState extends State<MenuPage> {
                                     Text(
                                       "BOOKING",
                                       style: TextStyle(
-                                          color: Colors.black, fontSize: 16),
+                                          color: Colors.white, fontSize: 16),
                                     ),
                                   ],
                                 ),
@@ -91,7 +125,7 @@ class _MenuPageState extends State<MenuPage> {
                                     Text(
                                       "Get Your Car Parked",
                                       style: TextStyle(
-                                          color: Colors.black,
+                                          color: Colors.white,
                                           fontSize: 25,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -117,7 +151,7 @@ class _MenuPageState extends State<MenuPage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    color: Color(0xff2c2c2e),
+                    color: requestCardColor,
                     margin: EdgeInsets.only(top: 8, left: 16, right: 16),
                     child: Container(
                       padding: EdgeInsets.only(top: 14, left: 18, right: 12),

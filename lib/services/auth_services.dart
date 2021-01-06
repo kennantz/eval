@@ -1,37 +1,39 @@
 part of 'services.dart';
 
 class AuthServices {
-
   static FirebaseAuth auth = FirebaseAuth.instance;
 
-  static Future<String> signUp(String email, String password, String nama, String phone) async{
+  static Future<String> signUp(
+      String email, String password, String nama, String phone) async {
     await Firebase.initializeApp();
     String msg = "";
-    try{
-      UserCredential result = await auth.createUserWithEmailAndPassword(email: email, 
-      password: password);
-        Users users = result.user.convertToUser(name: nama, phone: phone);
-        auth.signOut();
-        await UserServices.updateUser(users);
-        msg = "success";
-    }catch(e){
+    try {
+      UserCredential result = await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      Users users = result.user.convertToUser(name: nama, phone: phone);
+      auth.signOut();
+      await UserServices.updateUser(users);
+      msg = "success";
+    } catch (e) {
       msg = e.toString();
     }
 
     return msg;
   }
 
-  static Future<String> signIn(String email, String password) async{
+  static Future<String> signIn(String email, String password) async {
     await Firebase.initializeApp();
-    String msg="";
-    try{
-      await auth.signInWithEmailAndPassword(email: email, password: password).whenComplete(() => 
-        msg = "success",
-      );
-    }catch(e){
+    String msg = "";
+    try {
+      await auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .whenComplete(
+            () => msg = "success",
+          );
+    } catch (e) {
       msg = e.toString();
     }
-    
+
     return msg;
   }
 
@@ -43,13 +45,13 @@ class AuthServices {
     return result;
   }
 
-  static Future<String> updateSelectedCar(String carID) async{
+  static Future<String> updateSelectedCar(String carID) async {
     await Firebase.initializeApp();
     String msg = "";
-    try{
+    try {
       await CarServices.updateSelectedCar(carID);
       msg = "success";
-    }catch(e){
+    } catch (e) {
       msg = e.toString();
     }
 
