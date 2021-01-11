@@ -1,23 +1,27 @@
 // part of 'widgets.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eval/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:eval/models/models.dart';
 import 'package:eval/ui/pages/pages.dart';
 
 class CarCard extends StatelessWidget {
-  final Cars car;
-  CarCard({this.car});
 
-  String carIsSelected;
+  final Cars car;
+  final String selectedCarID;
+
+  CarCard({this.car, this.selectedCarID});
+
+  String carIsSelected = "";
 
   @override
   Widget build(BuildContext context) {
 
-    if (car.isSelected == "false") {
-      carIsSelected = "";
-    } else {
+    if (car.id == selectedCarID) {
       carIsSelected = "(Selected)";
+    } else {
+      carIsSelected = "";
     }
 
     return Card(
