@@ -6,7 +6,6 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
-
   User _auth = FirebaseAuth.instance.currentUser;
   CollectionReference userCollection =
       FirebaseFirestore.instance.collection("Users");
@@ -49,7 +48,8 @@ class _MenuPageState extends State<MenuPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => PaymentConfirmationPage(bookingCode: result)),
+              builder: (context) =>
+                  PaymentConfirmationPage(bookingCode: result)),
         );
       });
     } on PlatformException catch (error) {
@@ -87,13 +87,9 @@ class _MenuPageState extends State<MenuPage> {
             children: [
               GestureDetector(
                 onTap: () {
-
                   if (currentBooking == "") {
                     _scanQR();
-                  } else {
-                    
-                  }
-                  
+                  } else {}
                 },
                 child: Container(
                   height: 280,
@@ -142,7 +138,12 @@ class _MenuPageState extends State<MenuPage> {
               ),
               GestureDetector(
                 onTap: () {
-                  print("tapped on container");
+                  setState(() {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => WaitingPage()),
+                    );
+                  });
                 },
                 child: Container(
                   height: 280,

@@ -22,3 +22,4 @@ part 'tabs/menuPage.dart';
 part 'tabs/paymentConfirmationPage.dart';
 part 'tabs/listCarPage.dart';
 part 'mainmenu.dart';
+part 'tabs/waitingCarPage.dart';
