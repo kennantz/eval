@@ -178,55 +178,68 @@ class _AccountPageState extends State<AccountPage> {
                     ],
                   ),
                 ),
-                Container(
-                    height: 124,
-                    width: double.infinity,
-                    child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        color: Color(0xff2c2c2e),
-                        margin: EdgeInsets.only(top: 8, left: 16, right: 16),
-                        child: Container(
-                            padding: EdgeInsets.only(left: 12, right: 12),
-                            child: Column(
-                              children: [
-                                Container(
-                                    padding: EdgeInsets.only(
-                                        top: 14, left: 4, right: 18),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                            NumberFormat.currency(
-                                                        locale: 'id',
-                                                        decimalDigits: 0)
-                                                    .format(balance) ??
-                                                "",
-                                            style: TextStyle(
+                GestureDetector(
+                  onTap: () {
+                    // Change the color of the container beneath
+                    setState(() {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TopUpPage(),
+                          ));
+                    });
+                  },
+                  child: Container(
+                      height: 124,
+                      width: double.infinity,
+                      child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          color: Color(0xff2c2c2e),
+                          margin: EdgeInsets.only(top: 8, left: 16, right: 16),
+                          child: Container(
+                              padding: EdgeInsets.only(left: 12, right: 12),
+                              child: Column(
+                                children: [
+                                  Container(
+                                      padding: EdgeInsets.only(
+                                          top: 14, left: 4, right: 18),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                              NumberFormat.currency(
+                                                          locale: 'id',
+                                                          decimalDigits: 0)
+                                                      .format(balance) ??
+                                                  "",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 40,
+                                                  fontWeight: FontWeight.bold))
+                                        ],
+                                      )),
+                                  Container(
+                                      padding:
+                                          EdgeInsets.only(top: 14, left: 4),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("Top-up",
+                                              style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 40,
-                                                fontWeight: FontWeight.bold))
-                                      ],
-                                    )),
-                                Container(
-                                    padding: EdgeInsets.only(top: 14, left: 4),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("Top-up",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                            )),
-                                        Icon(CupertinoIcons.right_chevron,
-                                            color: Color(0xff8e8e93))
-                                      ],
-                                    ))
-                              ],
-                            )))),
+                                                fontSize: 16,
+                                              )),
+                                          Icon(CupertinoIcons.right_chevron,
+                                              color: Color(0xff8e8e93))
+                                        ],
+                                      ))
+                                ],
+                              )))),
+                ),
                 GestureDetector(
                     onTap: () async {
                       await AuthServices.signOut().then((value) {
