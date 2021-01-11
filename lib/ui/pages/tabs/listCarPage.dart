@@ -20,7 +20,13 @@ class _ListCarPageState extends State<ListCarPage> {
     return await showDialog(
         context: context,
         builder: (context) {
-          final TextEditingController _textEditingController =
+          final TextEditingController _textCarBrandController =
+              TextEditingController();
+          final TextEditingController _textCarModelController =
+              TextEditingController();
+          final TextEditingController _textCarColorController =
+              TextEditingController();
+          final TextEditingController _textCarPlateNumberController =
               TextEditingController();
           bool isChecked = false;
           return StatefulBuilder(builder: (context, setState) {
@@ -31,32 +37,33 @@ class _ListCarPageState extends State<ListCarPage> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TextFormField(
-                      controller: _textEditingController,
+                      controller: _textCarBrandController,
                       validator: (value) {
                         return value.isNotEmpty ? null : "Invalid Field";
                       },
                       decoration: InputDecoration(hintText: "Car Brand"),
                     ),
-                     TextFormField(
-                      controller: _textEditingController,
+                    TextFormField(
+                      controller: _textCarModelController,
                       validator: (value) {
                         return value.isNotEmpty ? null : "Invalid Field";
                       },
                       decoration: InputDecoration(hintText: "Car Model"),
                     ),
-                     TextFormField(
-                      controller: _textEditingController,
+                    TextFormField(
+                      controller: _textCarColorController,
                       validator: (value) {
                         return value.isNotEmpty ? null : "Invalid Field";
                       },
                       decoration: InputDecoration(hintText: "Car Color"),
                     ),
                     TextFormField(
-                      controller: _textEditingController,
+                      controller: _textCarPlateNumberController,
                       validator: (value) {
                         return value.isNotEmpty ? null : "Invalid Field";
                       },
-                      decoration: InputDecoration(hintText: "Plate Number (X XXXX XX)"),
+                      decoration:
+                          InputDecoration(hintText: "Plate Number (X XXXX XX)"),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,7 +83,7 @@ class _ListCarPageState extends State<ListCarPage> {
               ),
               actions: <Widget>[
                 GestureDetector(
-                  child: Text("Okay"),
+                  child: CupertinoButton(child: Text("Okay", style: TextStyle(color: Colors.blue))),
                   onTap: () {
                     if (_formKey.currentState.validate()) {
                       Navigator.of(context).pop();
