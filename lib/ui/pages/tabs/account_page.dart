@@ -9,6 +9,8 @@ class _AccountPageState extends State<AccountPage> {
   User _auth = FirebaseAuth.instance.currentUser;
   CollectionReference userCollection =
       FirebaseFirestore.instance.collection("Users");
+  CollectionReference carCollection =
+      FirebaseFirestore.instance.collection("Cars");
 
   String img, name, email, phoneNumber, selectedCar;
   int balance;
@@ -24,9 +26,15 @@ class _AccountPageState extends State<AccountPage> {
       if (selectedCar == "") {
         selectedCar = "None";
       } else {
-        selectedCar = "Model";
+        getCarModel();
       }
+      setState(() {});
+    });
+  }
 
+  void getCarModel() async {
+    carCollection.doc(selectedCar).snapshots().listen((event) {
+      selectedCar = event.data()['model'];
       setState(() {});
     });
   }

@@ -22,6 +22,7 @@ class _TopUpPageState extends State<TopUpPage> {
         ];
       },
       body: Container(
+        color: Colors.grey[100],
         child: Column(
           children: [
             Container(
@@ -36,13 +37,13 @@ class _TopUpPageState extends State<TopUpPage> {
                     border: Border.all(width: 0, color: Colors.white)),
                 style: TextStyle(color: Colors.black),
                 placeholderStyle: TextStyle(color: Colors.grey[300]),
-                placeholder: "Top Up",
+                placeholder: "Nominal",
               ),
             ),
             Container(
               margin: const EdgeInsets.fromLTRB(10, 10, 10, 2),
               padding: const EdgeInsets.all(6),
-              height: 380,
+              height: 180,
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage('lib/assets/LogoText.png'),
