@@ -20,11 +20,11 @@ class _MenuPageState extends State<MenuPage> {
       currentBooking = event.data()['current booking'];
 
       if (currentBooking == "") {
-        bookingCardColor = Colors.blue;
+        bookingCardColor = Color.fromRGBO(55, 94, 204, 1);
         requestCardColor = Color(0xff2c2c2e);
       } else {
         bookingCardColor = Color(0xff2c2c2e);
-        requestCardColor = Colors.blue;
+        requestCardColor = Color.fromRGBO(55, 94, 204, 1);
       }
 
       setState(() {});
