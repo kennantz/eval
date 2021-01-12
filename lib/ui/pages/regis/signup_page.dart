@@ -164,7 +164,7 @@ class _SignUpPagesState extends State<SignUpPages> {
                             );
                             Navigator.pushReplacement(context,
                                 MaterialPageRoute(builder: (context) {
-                              return MainMenu();
+                              return SignInPage();
                             }));
                           } else {
                             Fluttertoast.showToast(

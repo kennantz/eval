@@ -30,7 +30,6 @@ class CarCard extends StatelessWidget {
       child: ListTile(
         contentPadding: EdgeInsets.only(left: 20),
         onTap: () async {
-            carIsSelected = "true";
             await CarServices.updateSelectedCar(car.id);
         },
         title: Text(

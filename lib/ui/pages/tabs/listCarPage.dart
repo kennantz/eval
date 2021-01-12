@@ -6,10 +6,16 @@ class ListCarPage extends StatefulWidget {
 }
 
 class _ListCarPageState extends State<ListCarPage> {
+
+  String userID = FirebaseAuth.instance.currentUser.uid;
+  String carThatChange;
+
   bool isLoading = false;
 
-  CollectionReference productCollection =
-      FirebaseFirestore.instance.collection("Cars");
+  CollectionReference productCollection = FirebaseFirestore.instance
+      .collection("Users")
+      .doc(FirebaseAuth.instance.currentUser.uid)
+      .collection("Cars");
 
   CollectionReference userCollection =
       FirebaseFirestore.instance.collection("Users");
@@ -28,7 +34,6 @@ class _ListCarPageState extends State<ListCarPage> {
               TextEditingController();
           final TextEditingController _textCarPlateNumberController =
               TextEditingController();
-          bool isChecked = false;
           return StatefulBuilder(builder: (context, setState) {
             return AlertDialog(
               content: Form(
@@ -36,6 +41,11 @@ class _ListCarPageState extends State<ListCarPage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    // Container(
+                    //   margin: EdgeInsets.all(8),
+                    //   child: Text("Add new Car",
+                    //       style: TextStyle(fontWeight: FontWeight.bold)),
+                    // ),
                     TextFormField(
                       controller: _textCarBrandController,
                       validator: (value) {
@@ -65,28 +75,24 @@ class _ListCarPageState extends State<ListCarPage> {
                       decoration:
                           InputDecoration(hintText: "Plate Number (X XXXX XX)"),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Confirm Correct"),
-                        Checkbox(
-                            value: isChecked,
-                            onChanged: (checked) {
-                              setState(() {
-                                isChecked = checked;
-                              });
-                            })
-                      ],
-                    )
                   ],
                 ),
               ),
               actions: <Widget>[
                 GestureDetector(
-                  child: CupertinoButton(child: Text("Okay", style: TextStyle(color: Colors.blue))),
-                  onTap: () {
+                  child: CupertinoButton(
+                      child: Text("Add", style: TextStyle(color: Colors.blue))),
+                  onTap: () async {
                     if (_formKey.currentState.validate()) {
-                      Navigator.of(context).pop();
+                      String carBrand = _textCarBrandController.text;
+                      String carModel = _textCarModelController.text;
+                      String carColor = _textCarColorController.text;
+                      String plateNumber = _textCarPlateNumberController.text;
+
+                      await CarServices.addNewCar(
+                          carBrand, carModel, carColor, plateNumber);
+
+                      // Navigator.of(context).pop();
                     }
                   },
                 ),
@@ -105,12 +111,11 @@ class _ListCarPageState extends State<ListCarPage> {
             CupertinoSliverNavigationBar(
               largeTitle: Text("My Cars"),
               trailing: GestureDetector(
-                onTap: () async {
-                  await showInformationDialog(context);
-                  print("tapped");
-                },
-                child: Text("New", style: TextStyle(color: Colors.blue)),
-              ),
+                  onTap: () async {
+                    await showInformationDialog(context);
+                    print("tapped");
+                  },
+                  child: Icon(Icons.add)),
             )
           ];
         },
@@ -139,12 +144,20 @@ class _ListCarPageState extends State<ListCarPage> {
                             //     color: Colors.blue,
                             //   );
                             // }
+                            
+                            for (var i = 0; i < snapshot.data.docs.length; i++) {
+                              String userIDThatChange = snapshot.data.docs[i].data()["uid"];
+                              if (userID == userIDThatChange) {
+                                carThatChange = snapshot.data.docs[i].data()["selected car"];
+                                break;
+                              }
+                            }
+
                             return ListView(
                               children: snapshot1.data.docs
                                   .map((DocumentSnapshot doc) {
                                 return CarCard(
-                                  selectedCarID: snapshot.data.docs[0]
-                                      .data()["selected car"],
+                                  selectedCarID: carThatChange,
                                   car: Cars(
                                       doc.data()['id'],
                                       doc.data()['brand'],
