@@ -156,7 +156,7 @@ class _SignUpPagesState extends State<SignUpPages> {
                               ctrlPhone.text);
                           if (result == 'success') {
                             Fluttertoast.showToast(
-                              msg: "DUAR MEMEK!",
+                              msg: "Sign In Successfull!",
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
                               backgroundColor: Colors.green,

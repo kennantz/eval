@@ -86,7 +86,7 @@ class _SignInPageState extends State<SignInPage> {
                             ctrlEmail.text, ctrlPassword.text);
                         if (result == "success") {
                           Fluttertoast.showToast(
-                            msg: "DUOORRRRR MEMEX!",
+                            msg: "Sign In Successfull!",
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.BOTTOM,
                             backgroundColor: Colors.green,
