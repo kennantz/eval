@@ -10,6 +10,19 @@ class _TopUpPageState extends State<TopUpPage> {
     super.initState();
   }
 
+  File imageFile;
+  File defaultImage = File("eval/lib/assets/LogoText.png");
+
+  final ImagePicker imagePicker = ImagePicker();
+
+  Future chooseImage() async {
+    final selectedImage = await imagePicker.getImage(
+        source: ImageSource.gallery, imageQuality: 50);
+    setState(() {
+      imageFile = File(selectedImage.path);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -43,11 +56,9 @@ class _TopUpPageState extends State<TopUpPage> {
               margin: const EdgeInsets.fromLTRB(10, 10, 10, 2),
               padding: const EdgeInsets.all(6),
               height: 380,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('lib/assets/LogoText.png'),
-                    fit: BoxFit.cover),
-              ),
+              child: (imageFile != null)
+                  ? Image.file(imageFile)
+                  : Image.asset('lib/assets/LogoText.png'),
             ),
             Container(
               margin: const EdgeInsets.fromLTRB(10, 2, 10, 10),
@@ -60,50 +71,15 @@ class _TopUpPageState extends State<TopUpPage> {
                 borderRadius: new BorderRadius.all(new Radius.circular(8)),
               ),
               child: CupertinoButton(
-                  // onPressed: () async {
-                  //   if (ctrlEmail.text == "" || ctrlPassword.text == "") {
-                  //     Fluttertoast.showToast(
-                  //       msg: "Please fill all fields!",
-                  //       toastLength: Toast.LENGTH_SHORT,
-                  //       gravity: ToastGravity.BOTTOM,
-                  //       backgroundColor: Colors.red,
-                  //       textColor: Colors.white,
-                  //       fontSize: 16,
-                  //     );
-                  //   } else {
-                  //     String result = await AuthServices.signIn(
-                  //         ctrlEmail.text, ctrlPassword.text);
-                  //     if (result == "success") {
-                  //       Fluttertoast.showToast(
-                  //         msg: "DUOORRRRR MEMEX!",
-                  //         toastLength: Toast.LENGTH_SHORT,
-                  //         gravity: ToastGravity.BOTTOM,
-                  //         backgroundColor: Colors.green,
-                  //         textColor: Colors.white,
-                  //         fontSize: 16,
-                  //       );
-                  //       Navigator.pushReplacement(context,
-                  //           MaterialPageRoute(builder: (context) {
-                  //         return MainMenu();
-                  //       }));
-                  //     } else {
-                  //       Fluttertoast.showToast(
-                  //         msg: result,
-                  //         toastLength: Toast.LENGTH_SHORT,
-                  //         gravity: ToastGravity.BOTTOM,
-                  //         backgroundColor: Colors.green,
-                  //         textColor: Colors.white,
-                  //         fontSize: 16,
-                  //       );
-                  //     }
-                  //   }
-                  // },
+                  onPressed: () async {
+                    chooseImage();
+                  },
                   child: Text(
-                'UPLOAD',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromRGBO(55, 94, 204, 1)),
-              )),
+                    'UPLOAD',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromRGBO(55, 94, 204, 1)),
+                  )),
             ),
             Container(
               margin: const EdgeInsets.fromLTRB(10, 2, 10, 10),
