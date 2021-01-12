@@ -149,29 +149,41 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
                             ],
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.only(top: 14, left: 4),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Payment Method",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 16),
-                              ),
-                              Row(
-                                children: [
-                                  Text("e-val wallet",
-                                      style: TextStyle(
-                                          color: Color(0xff8e8e93),
-                                          fontSize: 16)),
-                                  Icon(CupertinoIcons.right_chevron,
-                                      color: Color(0xff8e8e93))
-                                ],
-                              )
-                            ],
+                        GestureDetector(
+                          onTap: () {
+                            // Change the color of the container beneath
+                            setState(() {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => TopUpPage(),
+                                  ));
+                            });
+                          },
+                          child: Container(
+                            padding: EdgeInsets.only(top: 14, left: 4),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Payment Method",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                ),
+                                Row(
+                                  children: [
+                                    Text("e-val wallet",
+                                        style: TextStyle(
+                                            color: Color(0xff8e8e93),
+                                            fontSize: 16)),
+                                    Icon(CupertinoIcons.right_chevron,
+                                        color: Color(0xff8e8e93))
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),
@@ -271,19 +283,32 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
                                   ],
                                 ),
                               ),
-                              Container(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("Change Car",
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 16)),
-                                    Icon(CupertinoIcons.right_chevron,
-                                        color: Color(0xff8e8e93))
-                                  ],
+                              GestureDetector(
+                                onTap: () {
+                                  // Change the color of the container beneath
+                                  setState(() {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ListCarPage(),
+                                        ));
+                                  });
+                                },
+                                child: Container(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("Change Car",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16)),
+                                      Icon(CupertinoIcons.right_chevron,
+                                          color: Color(0xff8e8e93))
+                                    ],
+                                  ),
                                 ),
-                              ),
+                              )
                             ],
                           )))),
               Container(
@@ -295,14 +320,10 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
                 ),
                 child: CupertinoButton(
                     onPressed: () async {
-
                       if (balance < 30000) {
-
                         // BALANCE GAK CUKUP TOP UP WOI!
                         print("Duar ga cukup");
-
                       } else {
-
                         // HIYA CUKUP..
 
                         balance -= 30000;
@@ -324,7 +345,6 @@ class _PaymentConfirmationPageState extends State<PaymentConfirmationPage> {
                         Navigator.pop(context);
                         return msg;
                       }
-
                     },
                     child: Text(
                       'Order',

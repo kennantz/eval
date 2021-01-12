@@ -92,7 +92,8 @@ class _ListCarPageState extends State<ListCarPage> {
                       await CarServices.addNewCar(
                           carBrand, carModel, carColor, plateNumber);
 
-                      // Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+
                     }
                   },
                 ),
